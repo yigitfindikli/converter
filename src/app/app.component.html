@@ -1,0 +1,37 @@
+<div class="ui-g">
+    <div class="ui-g-12" style="text-align: center">
+        <p-dropdown *ngIf="currencies" [options]="currencies" styleClass="text-align: left" [(ngModel)]="selectedCurrency" 
+            (onChange)="toBeConvertedCurrency($event.value)"></p-dropdown>
+        <input type="number" pInputText pKeyFilter="num" (input)="onChangeToBeConvertedCurrencyNumber($event.target.value)">
+        <input type="number" pInputText pKeyFilter="num" [disabled]="true" value="{{converted}}">
+        <p-dropdown *ngIf="currencies" styleClass="text-align: left" [options]="currencies" [(ngModel)]="selectedToConvertCurrency"
+             (onChange)="convertedCurrency($event.value)"></p-dropdown>
+    </div>
+    <div class="ui-g-12">
+        <div class="ui-g-2">
+        </div>
+        <div class="ui-g-8">
+            <div class="ui-g-3">
+                <div style="text-align: right">
+                    <label for="chartRateCode">Current Rate</label>
+                </div>
+                <p-dropdown id="chartRateCode" *ngIf="currencies" [options]="currencies" [(ngModel)]="selectedChartData" [style]="{'float':'right'}"></p-dropdown>
+            </div>
+            <div class="ui-g-6" style="text-align: center">
+                <br>
+                <button id="chartButton" pButton type="button" label="See in the chart" (click)="getChartData()" [disabled]="!chartArray||chartArray.length<3"></button>
+            </div>
+            <div class="ui-g-3">
+                <label for="chartRates">Chart Rates</label>
+                <p-multiSelect id="chartRates" *ngIf="currencies" [options]="currencies" [(ngModel)]="chartArray" [panelStyle]="{minWidth:'12em'}"
+                    [style]="{'float':'left'}"></p-multiSelect>
+            </div>
+        </div>
+        <div class="ui-g-2">
+        </div>
+    </div>
+    <div class="ui-g-12">
+        <p-chart type="radar" [data]="data" *ngIf="showChart"></p-chart>
+    </div>
+
+</div>
